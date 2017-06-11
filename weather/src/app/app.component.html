@@ -1,4 +1,29 @@
-<h1>
-  {{title}}
-</h1>
-<button type="button" class="btn btn-success">Success</button>
+<div class="body">
+  <h1>
+    {{title}}
+  </h1>
+
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+      Виберіть місто
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <ul>
+        <li *ngFor="let city of cities"><a class="dropdown-item" (click)=selectCity(city)>{{city.name}}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div *ngIf="selectedCity">
+    <p>{{selectedCity.name}}</p>
+    <img src = "http://openweathermap.org/img/w/09d.png" alt = "icon">
+    <p>{{selectedCity.id}}</p>
+    <p>{{weatherData.temp}}</p>
+
+    <p>{{weatherDescription[0].icon}}</p>
+    <img src = "http://openweathermap.org/img/w/{{this.weatherDescription[0].icon}}.png" alt = "icon">
+
+  </div>
+
+</div>
