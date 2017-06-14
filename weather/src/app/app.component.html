@@ -15,15 +15,35 @@
     </div>
   </div>
 
-  <div *ngIf="selectedCity">
-    <p>{{selectedCity.name}}</p>
-    <img src = "http://openweathermap.org/img/w/09d.png" alt = "icon">
-    <p>{{selectedCity.id}}</p>
-    <p>{{weatherData.temp}}</p>
 
-    <p>{{weatherDescription[0].icon}}</p>
-    <img src = "http://openweathermap.org/img/w/{{this.weatherDescription[0].icon}}.png" alt = "icon">
-
+  <div *ngIf="selectedCity  && forecastWeatherData && weatherData">
+    <p>{{selectedCity.name}} - погода на сьогоодні </p>
+    <table class="table table-responsive table table-bordered">
+      <thead>
+      <tr>
+        <th>Погода</th>
+        <th>Температура</th>
+        <th>Вітер</th>
+        <th>Вологість</th>
+        <th>Тиск</th>
+        <th>Опис погоди</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><img src="http://openweathermap.org/img/w/{{weatherData.weather[0].icon}}.png" alt="icon"></td>
+        <td>{{convertTemp(weatherData)}}</td>
+        <td>{{weatherData.wind.speed}}</td>
+        <td>{{weatherData.main.humidity}}</td>
+        <td>{{weatherData.main.pressure}}</td>
+        <td>{{weatherData.weather[0].description}}</td>
+      </tr>
+    </table>
+    <p>{{forecastWeatherData.message}}</p>
+    <p>{{forecastWeatherData.list[0].weather[0].description}}</p>
+    <p>{{forecastWeatherData.list[2].weather[0].description}}</p>
+    <p>{{forecastWeatherData.list[1].weather[0].description}}</p>
   </div>
+
 
 </div>
