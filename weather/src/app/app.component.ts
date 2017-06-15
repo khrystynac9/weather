@@ -29,9 +29,14 @@ export class AppComponent {
     this.cities = this.service.getAllCities()
   }
 
-  convertTemp(wetherd: WeatherData):number {
-    return wetherd.main.temp - 273;
+  convertTemp(weatherData: WeatherData):number {
+    return Math.round(weatherData.main.temp - 273);
   }
+  // getDate(forecastWeatherData: ForecastWeatherData) {
+  //   let date = new Date(forecastWeatherData.list[0].dt);
+  //   console.log(date.toDateString());
+  //   // return date.toDateString();
+  // }
 
   selectCity(city: City): void {
     this.selectedCity = city;
@@ -43,7 +48,6 @@ export class AppComponent {
     this.service.getCurrentWeatherData(city).subscribe((resp) => {
       this.weatherData = resp;
     });
-    // console.log(this.weatherData.main.temp);
   }
 
   getWeatherForecastData(city: City): void {

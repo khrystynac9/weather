@@ -1,12 +1,9 @@
 <div class="body">
-  <h1>
-    {{title}}
-  </h1>
 
   <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-      Виберіть місто
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+      Please select the city
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       <ul>
@@ -15,18 +12,18 @@
     </div>
   </div>
 
-
+  <!--for today-->
   <div *ngIf="selectedCity  && forecastWeatherData && weatherData">
-    <p>{{selectedCity.name}} - погода на сьогоодні </p>
+    <h5>The weather in {{selectedCity.name}} for today</h5>
     <table class="table table-responsive table table-bordered">
       <thead>
       <tr>
-        <th>Погода</th>
-        <th>Температура</th>
-        <th>Вітер</th>
-        <th>Вологість</th>
-        <th>Тиск</th>
-        <th>Опис погоди</th>
+        <th>Weather icon</th>
+        <th>Temperature, `C</th>
+        <th>Wind, m/s</th>
+        <th>Humidity, %</th>
+        <th>Pressure, hpa</th>
+        <th>Cloudiness of the sky</th>
       </tr>
       </thead>
       <tbody>
@@ -39,11 +36,126 @@
         <td>{{weatherData.weather[0].description}}</td>
       </tr>
     </table>
-    <p>{{forecastWeatherData.message}}</p>
-    <p>{{forecastWeatherData.list[0].weather[0].description}}</p>
-    <p>{{forecastWeatherData.list[2].weather[0].description}}</p>
-    <p>{{forecastWeatherData.list[1].weather[0].description}}</p>
+
+
+    <!--<p>{{forecastWeatherData.message}}</p>-->
+    <!--<p>{{forecastWeatherData.list[0].weather[0].description}}</p>-->
+    <!--<p>{{forecastWeatherData.list[2].weather[0].description}}</p>-->
+    <!--<p>{{forecastWeatherData.list[1].weather[0].description}}</p>-->
   </div>
 
+  <!--forecastWeather-->
+  <div id="accordion" class="acord" role="tablist" aria-multiselectable="true">
+    <div class="card">
+      <div class="card-header" role="tab" id="headingOne">
+        <h5 class="mb-0">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+             aria-controls="collapseOne">
+            Weather for
+            <!--Weather for {{getDate(forecastWeatherData)}}-->
+          </a>
+        </h5>
+      </div>
 
+      <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+        <div class="card-block">
+          <table class="table table-responsive table table-bordered">
+            <thead>
+            <tr>
+              <th>Weather icon</th>
+              <th>Temperature, `C</th>
+              <th>Wind, m/s</th>
+              <th>Humidity, %</th>
+              <th>Pressure, hpa</th>
+              <th>Cloudiness of the sky</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><img src="http://openweathermap.org/img/w/{{forecastWeatherData.list[0].weather[0].icon}}.png"
+                       alt="icon"></td>
+              <td>{{temp}}</td>
+              <td>{{forecastWeatherData.list[0].wind.speed}}</td>
+              <td>{{forecastWeatherData.list[0].main.humidity}}</td>
+              <td>{{forecastWeatherData.list[0].main.pressure}}</td>
+              <td>{{forecastWeatherData.list[0].weather[0].description}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab" id="headingTwo">
+        <h5 class="mb-0">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+             aria-controls="collapseTwo">
+            Weather for
+          </a>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="card-block">
+          <table class="table table-responsive table table-bordered">
+            <thead>
+            <tr>
+              <th>Weather icon</th>
+              <th>Temperature, `C</th>
+              <th>Wind, m/s</th>
+              <th>Humidity, %</th>
+              <th>Pressure, hpa</th>
+              <th>Cloudiness of the sky</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><img src="http://openweathermap.org/img/w/{{forecastWeatherData.list[1].weather[0].icon}}.png"
+                       alt="icon"></td>
+              <td>{{convertTemp(weatherData)}}</td>
+              <td>{{forecastWeatherData.list[1].wind.speed}}</td>
+              <td>{{forecastWeatherData.list[1].main.humidity}}</td>
+              <td>{{forecastWeatherData.list[1].main.pressure}}</td>
+              <td>{{forecastWeatherData.list[1].weather[0].description}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab" id="headingThree">
+        <h5 class="mb-0">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+             aria-expanded="false"
+             aria-controls="collapseThree">
+            Weather for
+          </a>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+        <div class="card-block">
+          <table class="table table-responsive table table-bordered">
+            <thead>
+            <tr>
+              <th>Weather icon</th>
+              <th>Temperature, `C</th>
+              <th>Wind, m/s</th>
+              <th>Humidity, %</th>
+              <th>Pressure, hpa</th>
+              <th>Cloudiness of the sky</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><img src="http://openweathermap.org/img/w/{{forecastWeatherData.list[2].weather[0].icon}}.png"
+                       alt="icon"></td>
+              <td>{{convertTemp(weatherData)}}</td>
+              <td>{{forecastWeatherData.list[2].wind.speed}}</td>
+              <td>{{forecastWeatherData.list[2].main.humidity}}</td>
+              <td>{{forecastWeatherData.list[2].main.pressure}}</td>
+              <td>{{forecastWeatherData.list[2].weather[0].description}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

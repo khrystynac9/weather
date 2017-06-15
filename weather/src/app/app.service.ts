@@ -35,5 +35,10 @@ export class WeatherService {
       + ourCity.countryCode + "&mode=xml,&APPID=c7e98cf72324034bbbb3043112407cfc")
       .map((resp: Response) => resp.json());
   }
+  // getWeatherMap() {
+  //   return this.http.get("http://tile.openweathermap.org/map/{temp_new}/{z}/{x}/{y}.png?appid={api_key}")
+  // }
+
 }
+
 

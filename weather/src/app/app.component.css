@@ -5,4 +5,11 @@ li {
 .body {
   width: 70%;
   margin: auto;
+  margin-top: 5%;
+}
+h5 {
+  margin: 2% 0;
+}
+.acord {
+  margin: 2% 0;
 }

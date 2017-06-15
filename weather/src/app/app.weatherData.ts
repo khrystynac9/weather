@@ -3,6 +3,7 @@ export class WeatherData {
   id: number;
   cod: number;
   name: string;
+  dt: number;
   coord: WeatherDataCoord;
   weather: WeatherDataWeather [];
   sys: WeatherDataSys;
@@ -48,4 +49,4 @@ export class WeatherData {
 export class ForecastWeatherData {
   message: number;
   list : WeatherData [];
-}
+ }
