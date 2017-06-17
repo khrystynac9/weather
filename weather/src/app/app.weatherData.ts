@@ -46,7 +46,29 @@ export class WeatherData {
   all: number;
 }
 
-export class ForecastWeatherData {
+export class HourlyDayWeatherData {
   message: number;
   list : WeatherData [];
  }
+
+export class ForecastWeatherData {
+  message: number;
+  list: ForecastWeatherList[];
+}
+class ForecastWeatherList {
+  dt: number;
+  pressure: number;
+  humidity: number;
+  speed: number;
+  temp: ForecastWeatherTemp;
+  weather: ForecastWeatherWeather[];
+}
+class ForecastWeatherTemp {
+  day: number;
+  night: number
+}
+class ForecastWeatherWeather {
+  main: string;
+  description: string;
+  icon: string;
+}

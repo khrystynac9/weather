@@ -31,14 +31,15 @@ export class WeatherService {
   }
 
   getForecastWeatherData(ourCity: City) {
+    return this.http.get("http://api.openweathermap.org/data/2.5/forecast/daily?q=" + ourCity.name + ","
+      + ourCity.countryCode + "&cnt=5&APPID=c7e98cf72324034bbbb3043112407cfc")
+      .map((resp: Response) => resp.json());
+  }
+  getHourlyDayWeatherData(ourCity: City) {
     return this.http.get("http://api.openweathermap.org/data/2.5/forecast?q=" + ourCity.name + ","
       + ourCity.countryCode + "&mode=xml,&APPID=c7e98cf72324034bbbb3043112407cfc")
       .map((resp: Response) => resp.json());
   }
-  // getWeatherMap() {
-  //   return this.http.get("http://tile.openweathermap.org/map/{temp_new}/{z}/{x}/{y}.png?appid={api_key}")
-  // }
-
 }
 
 

@@ -1,11 +1,21 @@
+.body-background {
+  background-image: url("../assets/images/color_two.jpg");
+  background-repeat: no-repeat;
+  width: 80%;
+  margin: auto;
+  padding: 3%;
+
+  /*background-color: aquamarine;*/
+}
 li {
   list-style-type: none;
 
 }
 .body {
-  width: 70%;
+  width: 80%;
   margin: auto;
   margin-top: 5%;
+  font-family: 'Indie Flower', cursive;
 }
 h5 {
   margin: 2% 0;
@@ -13,3 +23,19 @@ h5 {
 .acord {
   margin: 2% 0;
 }
+tr td {
+  text-align: center;
+  vertical-align: middle;
+}
+.tableForToday {
+  margin-top: 2%;
+  background-color: #ffffff;
+  border: 1px solid #D6D6D6;
+  opacity: 0.85;
+  padding: 2%;
+}
+.tableForToday p {
+  font-weight: bold;
+  color: black;
+}
+

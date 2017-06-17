@@ -1,161 +1,92 @@
-<div class="body">
+<div class="body-background">
+  <div class="body">
 
-  <div class="dropdown">
-    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
-      Please select the city
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <ul>
-        <li *ngFor="let city of cities"><a class="dropdown-item" (click)=selectCity(city)>{{city.name}}</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!--for today-->
-  <div *ngIf="selectedCity  && forecastWeatherData && weatherData">
-    <h5>The weather in {{selectedCity.name}} for today</h5>
-    <table class="table table-responsive table table-bordered">
-      <thead>
-      <tr>
-        <th>Weather icon</th>
-        <th>Temperature, `C</th>
-        <th>Wind, m/s</th>
-        <th>Humidity, %</th>
-        <th>Pressure, hpa</th>
-        <th>Cloudiness of the sky</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><img src="http://openweathermap.org/img/w/{{weatherData.weather[0].icon}}.png" alt="icon"></td>
-        <td>{{convertTemp(weatherData)}}</td>
-        <td>{{weatherData.wind.speed}}</td>
-        <td>{{weatherData.main.humidity}}</td>
-        <td>{{weatherData.main.pressure}}</td>
-        <td>{{weatherData.weather[0].description}}</td>
-      </tr>
-    </table>
-
-
-    <!--<p>{{forecastWeatherData.message}}</p>-->
-    <!--<p>{{forecastWeatherData.list[0].weather[0].description}}</p>-->
-    <!--<p>{{forecastWeatherData.list[2].weather[0].description}}</p>-->
-    <!--<p>{{forecastWeatherData.list[1].weather[0].description}}</p>-->
-  </div>
-
-  <!--forecastWeather-->
-  <div id="accordion" class="acord" role="tablist" aria-multiselectable="true">
-    <div class="card">
-      <div class="card-header" role="tab" id="headingOne">
-        <h5 class="mb-0">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
-             aria-controls="collapseOne">
-            Weather for
-            <!--Weather for {{getDate(forecastWeatherData)}}-->
-          </a>
-        </h5>
-      </div>
-
-      <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-        <div class="card-block">
-          <table class="table table-responsive table table-bordered">
-            <thead>
-            <tr>
-              <th>Weather icon</th>
-              <th>Temperature, `C</th>
-              <th>Wind, m/s</th>
-              <th>Humidity, %</th>
-              <th>Pressure, hpa</th>
-              <th>Cloudiness of the sky</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><img src="http://openweathermap.org/img/w/{{forecastWeatherData.list[0].weather[0].icon}}.png"
-                       alt="icon"></td>
-              <td>{{temp}}</td>
-              <td>{{forecastWeatherData.list[0].wind.speed}}</td>
-              <td>{{forecastWeatherData.list[0].main.humidity}}</td>
-              <td>{{forecastWeatherData.list[0].main.pressure}}</td>
-              <td>{{forecastWeatherData.list[0].weather[0].description}}</td>
-            </tr>
-          </table>
-        </div>
+    <div class="dropdown">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+        Please select the city
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <ul>
+          <li *ngFor="let city of cities"><a class="dropdown-item" (click)=selectCity(city)>{{city.name}}</a></li>
+        </ul>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header" role="tab" id="headingTwo">
-        <h5 class="mb-0">
-          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
-             aria-controls="collapseTwo">
-            Weather for
-          </a>
-        </h5>
+
+    <!--for today-->
+
+    <div *ngIf="selectedCity  && forecastWeatherData && weatherData && hourlyWeatherData">
+      <div class="tableForToday">
+        <h5>The weather in {{selectedCity.name}} at the moment </h5>
+        <table class="table table-responsive table table-bordered">
+          <thead>
+          <tr>
+            <th>Weather icon</th>
+            <th>Temperature, &#8451;</th>
+            <th>Wind, m/s</th>
+            <th>Humidity, %</th>
+            <th>Pressure, hpa</th>
+            <th>Cloudiness of the sky</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><img src="http://openweathermap.org/img/w/{{weatherData.weather[0].icon}}.png" alt="icon"></td>
+            <td>{{convertTemp(weatherData.main.temp)}}</td>
+            <td>{{weatherData.wind.speed}}</td>
+            <td>{{weatherData.main.humidity}}</td>
+            <td>{{weatherData.main.pressure}}</td>
+            <td>{{weatherData.weather[0].description}}</td>
+          </tr>
+        </table>
       </div>
-      <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-        <div class="card-block">
-          <table class="table table-responsive table table-bordered">
-            <thead>
-            <tr>
-              <th>Weather icon</th>
-              <th>Temperature, `C</th>
-              <th>Wind, m/s</th>
-              <th>Humidity, %</th>
-              <th>Pressure, hpa</th>
-              <th>Cloudiness of the sky</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><img src="http://openweathermap.org/img/w/{{forecastWeatherData.list[1].weather[0].icon}}.png"
-                       alt="icon"></td>
-              <td>{{convertTemp(weatherData)}}</td>
-              <td>{{forecastWeatherData.list[1].wind.speed}}</td>
-              <td>{{forecastWeatherData.list[1].main.humidity}}</td>
-              <td>{{forecastWeatherData.list[1].main.pressure}}</td>
-              <td>{{forecastWeatherData.list[1].weather[0].description}}</td>
-            </tr>
-          </table>
+
+      <!--forecastWeather-->
+
+      <div [attr.id]="'accordion_' + i" class="acord" role="tablist" aria-multiselectable="true">
+        <div class="card" *ngFor="let listItem of forecastWeatherData.list let i = index;">
+          <div class="card-header" role="tab" [attr.id]="'headingOne_' + i">
+            <h5 class="mb-0">
+              <a data-toggle="collapse" [attr.data-parent]="'#accordion_' + i" [attr.href]="'#collapseOne_' + i"
+                 aria-expanded="true"
+                 aria-controls="'#collapseOne_' + i">
+                Weather for {{getDate(listItem.dt)}}
+              </a>
+            </h5>
+          </div>
+
+          <div [attr.id]="'collapseOne_' + i" class="collapse" role="tabpanel" aria-labelledby="'headingOne_' + i">
+            <div class="card-block">
+              <table class="table table-responsive table table-bordered">
+                <thead>
+                <tr>
+                  <th>Weather icon</th>
+                  <th>Temperature, day &#8451;</th>
+                  <th>Temperature, night &#8451;</th>
+                  <th>Wind, m/s</th>
+                  <th>Humidity, %</th>
+                  <th>Pressure, hpa</th>
+                  <th>Cloudiness of the sky</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><img src="http://openweathermap.org/img/w/{{listItem.weather[0].icon}}.png"
+                           alt="icon"></td>
+                  <td>{{convertTemp(listItem.temp.day)}}</td>
+                  <td>{{convertTemp(listItem.temp.night)}}</td>
+                  <td>{{listItem.speed}}</td>
+                  <td>{{listItem.humidity}}</td>
+                  <td>{{listItem.pressure}}</td>
+                  <td>{{listItem.weather[0].description}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card">
-      <div class="card-header" role="tab" id="headingThree">
-        <h5 class="mb-0">
-          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
-             aria-expanded="false"
-             aria-controls="collapseThree">
-            Weather for
-          </a>
-        </h5>
-      </div>
-      <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-        <div class="card-block">
-          <table class="table table-responsive table table-bordered">
-            <thead>
-            <tr>
-              <th>Weather icon</th>
-              <th>Temperature, `C</th>
-              <th>Wind, m/s</th>
-              <th>Humidity, %</th>
-              <th>Pressure, hpa</th>
-              <th>Cloudiness of the sky</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><img src="http://openweathermap.org/img/w/{{forecastWeatherData.list[2].weather[0].icon}}.png"
-                       alt="icon"></td>
-              <td>{{convertTemp(weatherData)}}</td>
-              <td>{{forecastWeatherData.list[2].wind.speed}}</td>
-              <td>{{forecastWeatherData.list[2].main.humidity}}</td>
-              <td>{{forecastWeatherData.list[2].main.pressure}}</td>
-              <td>{{forecastWeatherData.list[2].weather[0].description}}</td>
-            </tr>
-          </table>
-        </div>
-      </div>
+
+
     </div>
   </div>
 </div>

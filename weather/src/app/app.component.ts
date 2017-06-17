@@ -1,7 +1,6 @@
-///<reference path="app.weatherData.ts"/>
 import {Component} from '@angular/core';
 import {City, WeatherService} from "./app.service";
-import {ForecastWeatherData, WeatherData} from "./app.weatherData";
+import {ForecastWeatherData, HourlyDayWeatherData, WeatherData} from "./app.weatherData";
 
 
 @Component({
@@ -13,13 +12,11 @@ import {ForecastWeatherData, WeatherData} from "./app.weatherData";
 export class AppComponent {
   constructor(private service: WeatherService) {
   }
-
-//опис змінних
-  title = 'app works!';
   cities: City[] = [];
   selectedCity: City;
   weatherData: WeatherData;
   forecastWeatherData: ForecastWeatherData;
+  hourlyWeatherData: HourlyDayWeatherData;
 
   ngOnInit() {
     this.getCities();
@@ -29,19 +26,21 @@ export class AppComponent {
     this.cities = this.service.getAllCities()
   }
 
-  convertTemp(weatherData: WeatherData):number {
-    return Math.round(weatherData.main.temp - 273);
+  convertTemp(temp: number):number {
+    return Math.round(temp - 273);
   }
-  // getDate(forecastWeatherData: ForecastWeatherData) {
-  //   let date = new Date(forecastWeatherData.list[0].dt);
-  //   console.log(date.toDateString());
-  //   // return date.toDateString();
-  // }
+
+  getDate(date: number):string {
+    let d = new Date(date*1000);
+    console.log(d.toDateString());
+    return d.toDateString();
+  }
 
   selectCity(city: City): void {
     this.selectedCity = city;
     this.getWeatherData(city);
     this.getWeatherForecastData(city);
+    this.getHourlyWeatherData(city);
   }
 
   getWeatherData(city: City): void {
@@ -50,10 +49,14 @@ export class AppComponent {
     });
   }
 
+  getHourlyWeatherData(city: City): void {
+    this.service.getHourlyDayWeatherData(city).subscribe((resp) => {
+      this.hourlyWeatherData = resp;
+    });
+  }
   getWeatherForecastData(city: City): void {
     this.service.getForecastWeatherData(city).subscribe((resp) => {
       this.forecastWeatherData = resp;
     });
   }
-
 }
