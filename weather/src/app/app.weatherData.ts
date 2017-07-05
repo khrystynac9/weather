@@ -12,14 +12,14 @@ export class WeatherData {
   clouds: WeatherDataClouds;
 }
 
- class WeatherDataWeather {
+class WeatherDataWeather {
   id: number;
   main: string;
   description: string;
   icon: string;
 }
 
- class WeatherDataMain {
+class WeatherDataMain {
   temp: number;
   pressure: number;
   humidity: number;
@@ -29,32 +29,35 @@ export class WeatherData {
   grnd_level: number;
 }
 
- class WeatherDataWind {
+class WeatherDataWind {
   speed: number;
   deg: number;
 }
 
- class WeatherDataSys {
+class WeatherDataSys {
   message: number;
   country: string;
 }
- class WeatherDataCoord {
+
+class WeatherDataCoord {
   lon: number;
   lat: number;
 }
- class WeatherDataClouds {
+
+class WeatherDataClouds {
   all: number;
 }
 
 export class HourlyDayWeatherData {
   message: number;
-  list : WeatherData [];
- }
+  list: WeatherData [];
+}
 
 export class ForecastWeatherData {
   message: number;
   list: ForecastWeatherList[];
 }
+
 class ForecastWeatherList {
   dt: number;
   pressure: number;
@@ -63,10 +66,12 @@ class ForecastWeatherList {
   temp: ForecastWeatherTemp;
   weather: ForecastWeatherWeather[];
 }
+
 class ForecastWeatherTemp {
   day: number;
   night: number
 }
+
 class ForecastWeatherWeather {
   main: string;
   description: string;

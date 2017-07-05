@@ -4,9 +4,10 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
-import {WeatherService} from "./app.service";
-import {ChartModule} from 'primeng/primeng';
+import {WeatherService} from './app.service';
 import {ButtonModule} from 'primeng/primeng';
+import {AutoCompleteModule} from 'primeng/primeng';
+import {ChartModule} from 'angular2-chartjs';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {ButtonModule} from 'primeng/primeng';
     FormsModule,
     HttpModule,
     ChartModule,
-    ButtonModule
+    ButtonModule,
+    AutoCompleteModule
   ],
   providers: [WeatherService],
   bootstrap: [AppComponent]

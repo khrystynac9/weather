@@ -1,17 +1,58 @@
-import {Component} from "@angular/core";
-import {City, WeatherService} from "./app.service";
-import {ForecastWeatherData, HourlyDayWeatherData, WeatherData} from "./app.weatherData";
+import {Component, ElementRef} from '@angular/core';
+import {City, WeatherService} from './app.service';
+import {ForecastWeatherData, HourlyDayWeatherData, WeatherData} from './app.weatherData';
 
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'app-root',
+  host: {'(document:click)': 'handleClick($event)'},
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 
 export class AppComponent {
+  public query = '';
+  public filteredList: City[] = [];
+  public elementRef;
 
-  constructor(private service: WeatherService) {
+
+  ukrCities: City[] = [];
+
+  constructor(private service: WeatherService, myElement: ElementRef) {
+    this.elementRef = myElement;
+  }
+
+  filter() {
+    if (this.query !== '') {
+      this.filteredList = this.service.searchUkrCity(this.query);
+    } else {
+      this.filteredList = [];
+    }
+  }
+
+  handleClick(event) {
+    let clickedComponent = event.target;
+    let inside = false;
+    do {
+      if (clickedComponent === this.elementRef.nativeElement) {
+        inside = true;
+      }
+      clickedComponent = clickedComponent.parentNode;
+    } while (clickedComponent);
+    if (!inside) {
+      this.filteredList = [];
+    }
+  }
+
+  select(item) {
+    this.query = item;
+    this.filteredList = [];
   }
 
   data: any;
@@ -21,14 +62,12 @@ export class AppComponent {
   forecastWeatherData: ForecastWeatherData;
   hourlyWeatherData: HourlyDayWeatherData;
 
-  // chartData: ChartHourlyTemp;
-
   ngOnInit() {
     this.getCities();
   }
 
   getCities(): void {
-    this.cities = this.service.getAllCities()
+    this.cities = this.service.getAllCities();
   }
 
   convertTemp(temp: number): number {
@@ -39,13 +78,18 @@ export class AppComponent {
     let d = new Date(date * 1000);
     return d.toDateString();
   }
+  getDateHour(date:number): number {
+    let d = new Date(date * 1000);
+    return d.getHours();
+  }
 
   selectCity(city: City): void {
     this.selectedCity = city;
     this.getWeatherData(city);
     this.getWeatherForecastData(city);
     this.getHourlyWeatherData(city);
-    // this.getChartData();
+    this.query = city.name;
+    this.filteredList = [];
   }
 
   getWeatherData(city: City): void {
@@ -57,31 +101,43 @@ export class AppComponent {
   getHourlyWeatherData(city: City): void {
     this.service.getHourlyDayWeatherData(city).subscribe((resp) => {
       this.hourlyWeatherData = resp;
+      this.getChartData(this.hourlyWeatherData);
     });
   }
-
-  // getChartData() {
-  //   let chartData: ChartHourlyTemp;
-  //   for (let i = 0; i < this.hourlyWeatherData.list.length; i++) {
-  //     chartData.labels.push(this.getDate(this.hourlyWeatherData.list[i].dt));
-  //     chartData.datasets[0].temps.push(this.convertTemp(this.hourlyWeatherData.list[i].main.temp));
-  //   }
-  //   this.chartData = chartData;
-  // }
 
   getWeatherForecastData(city: City): void {
     this.service.getForecastWeatherData(city).subscribe((resp) => {
       this.forecastWeatherData = resp;
     });
   }
+
+  type = 'line';
+  datachart = {
+    labels: [],
+    datasets: [
+      {
+        label: "Temperature during the day",
+        data: []
+      }
+    ]
+  };
+  options = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+
+  getChartData(hourlyData: HourlyDayWeatherData) {
+    this.datachart.labels = [];
+    this.datachart.datasets[0].data =[];
+    console.log(this.datachart.labels);
+    console.log(this.datachart.datasets[0].data);
+    for (let i = 0; i < 8; i++) {
+      this.datachart.labels.push(this.getDateHour(hourlyData.list[i].dt));
+      this.datachart.datasets[0].data.push(this.convertTemp(hourlyData.list[i].main.temp));
+    }
+
+    console.log(this.datachart.labels);
+    console.log(this.datachart.datasets[0].data);
+  }
 }
 
-// class ChartHourlyTemp {
-//   labels: string [];
-//   datasets: [
-//     {
-//       label: 'Temperature during the day',
-//       temps: number[]
-//     }
-//     ]
-// }
