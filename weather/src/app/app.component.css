@@ -1,5 +1,5 @@
 .body-background {
-  background-image: url("../assets/images/color_two.jpg");
+  background-image: url("../assets/images/color_three.jpg");
   background-repeat: no-repeat;
   width: 80%;
   margin: auto;
@@ -37,4 +37,7 @@ tr td {
 }
 .font-weight {
   font-size: 1.6em;
+}
+.menu {
+  background: linear-gradient(#84ffff , #006064);
 }

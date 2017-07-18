@@ -1,9 +1,13 @@
 import {Component, ElementRef} from '@angular/core';
-import {City, WeatherService} from './app.service';
-import {ForecastWeatherData, HourlyDayWeatherData, WeatherData} from './app.weatherData';
-
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
+import {City, UKR_COUNTRY_CODE, WeatherService} from './app.service';
+import {
+  ChartData,
+  ChartDataSet,
+  ForecastWeatherData,
+  HourlyDayWeatherData,
+  UkrCity,
+  WeatherData
+} from './app.weatherData';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
@@ -21,16 +25,13 @@ export class AppComponent {
   public filteredList: City[] = [];
   public elementRef;
 
-
-  ukrCities: City[] = [];
-
   constructor(private service: WeatherService, myElement: ElementRef) {
     this.elementRef = myElement;
   }
 
   filter() {
     if (this.query !== '') {
-      this.filteredList = this.service.searchUkrCity(this.query);
+      this.filteredList = this.getUkrCities(this.query);
     } else {
       this.filteredList = [];
     }
@@ -57,87 +58,55 @@ export class AppComponent {
 
   data: any;
   cities: City[] = [];
-  selectedCity: City;
-  weatherData: WeatherData;
-  forecastWeatherData: ForecastWeatherData;
-  hourlyWeatherData: HourlyDayWeatherData;
+  // selectedCity: City;
+
+  // ukrCity: UkrCity;
+  ukrCity: any;
+  errorMsg: any;
 
   ngOnInit() {
-    this.getCities();
+    // this.getCities();
   }
 
-  getCities(): void {
-    this.cities = this.service.getAllCities();
-  }
-
-  convertTemp(temp: number): number {
-    return Math.round(temp - 273);
-  }
-
-  getDate(date: number): string {
-    let d = new Date(date * 1000);
-    return d.toDateString();
-  }
-  getDateHour(date:number): number {
-    let d = new Date(date * 1000);
-    return d.getHours();
-  }
-
-  selectCity(city: City): void {
-    this.selectedCity = city;
-    this.getWeatherData(city);
-    this.getWeatherForecastData(city);
-    this.getHourlyWeatherData(city);
-    this.query = city.name;
-    this.filteredList = [];
-  }
-
-  getWeatherData(city: City): void {
-    this.service.getCurrentWeatherData(city).subscribe((resp) => {
-      this.weatherData = resp;
-    });
-  }
-
-  getHourlyWeatherData(city: City): void {
-    this.service.getHourlyDayWeatherData(city).subscribe((resp) => {
-      this.hourlyWeatherData = resp;
-      this.getChartData(this.hourlyWeatherData);
-    });
-  }
-
-  getWeatherForecastData(city: City): void {
-    this.service.getForecastWeatherData(city).subscribe((resp) => {
-      this.forecastWeatherData = resp;
-    });
-  }
-
-  type = 'line';
-  datachart = {
-    labels: [],
-    datasets: [
-      {
-        label: "Temperature during the day",
-        data: []
-      }
-    ]
-  };
-  options = {
-    responsive: true,
-    maintainAspectRatio: false
-  };
-
-  getChartData(hourlyData: HourlyDayWeatherData) {
-    this.datachart.labels = [];
-    this.datachart.datasets[0].data =[];
-    console.log(this.datachart.labels);
-    console.log(this.datachart.datasets[0].data);
-    for (let i = 0; i < 8; i++) {
-      this.datachart.labels.push(this.getDateHour(hourlyData.list[i].dt));
-      this.datachart.datasets[0].data.push(this.convertTemp(hourlyData.list[i].main.temp));
+  getUkrCities(query: string): City [] {
+    let result: City [] = [];
+    this.service.searchUkrCity(query).subscribe((resp) => {
+        // this.ukrCity = resp;
+        this.ukrCity = resp;
+        this.errorMsg = "";
+        if (resp && resp.predictions.length > 0) {
+        }
+        else {
+          this.errorMsg = "Nothing Found";
+        }
+      },
+      error => {
+        console.log("error : " + error);
+        this.errorMsg = "Error Loading Your Listings";
+      });
+    // console.log(this.ukrCity.status + " status");
+    for (let i = 0; i < this.ukrCity.predictions.length; i++) {
+      result.push({name: this.ukrCity.predictions[i].structured_formatting.main_text, countryCode: UKR_COUNTRY_CODE});
     }
-
-    console.log(this.datachart.labels);
-    console.log(this.datachart.datasets[0].data);
+    console.log(result);
+    return result;
   }
+
+  // getCities(): void {
+  //   this.cities = this.service.getAllCities();
+  // }
+
+
+
+  // selectCity(city: City): void {
+  //   this.selectedCity = city;
+  //   this.getWeatherData(city);
+  //   this.getWeatherForecastData(city);
+  //   this.getHourlyWeatherData(city);
+  //   this.query = city.name;
+  //   this.filteredList = [];
+  // }
+
+
 }
 

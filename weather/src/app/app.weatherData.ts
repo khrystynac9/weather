@@ -77,3 +77,34 @@ class ForecastWeatherWeather {
   description: string;
   icon: string;
 }
+
+export class ChartData {
+  labels: number[];
+  datasets: ChartDataSet[];
+
+  constructor(labels: number[], datasets: ChartDataSet[]) {
+    this.labels = labels;
+    this.datasets = datasets;
+  }
+}
+
+export class ChartDataSet {
+  label: string;
+  data: number[];
+
+  constructor(label: string, data: number[]) {
+    this.label = label;
+    this.data = data;
+  }
+}
+export class UkrCity {
+  predictions: Predictions[];
+  status: string;
+}
+class Predictions {
+  description: string;
+  structured_formatting: StructuredFormatting;
+}
+class StructuredFormatting {
+  main_text: string;
+}

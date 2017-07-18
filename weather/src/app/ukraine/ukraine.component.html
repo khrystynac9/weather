@@ -1,0 +1,16 @@
+<!--the item for selecting the city-->
+<div>
+  <div class="container">
+    <div class="input-field col s12">
+      <label class="font-weight" for="country">Please input the name of the city</label>
+      <input id="country" type="text" class="validate filter-input" [(ngModel)]=query (keyup)=filter()>
+    </div>
+    <div class="suggestions" *ngIf="filteredList.length > 0">
+      <ul *ngFor="let city of filteredList">
+        <li>
+          <a (click)="selectCity(city)">{{city.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

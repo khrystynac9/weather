@@ -1,112 +1,18 @@
 <div class="body-background z-depth-2">
   <div class="body">
 
-    <!--the item for selecting the city-->
-    <div>
-      <div class="container">
-        <div class="input-field col s12">
-          <label class="font-weight" for="country">Please input thename of the city</label>
-          <input id="country" type="text" class="validate filter-input" [(ngModel)]=query (keyup)=filter()>
-        </div>
-        <div class="suggestions" *ngIf="filteredList.length > 0">
-          <ul *ngFor="let city of filteredList">
-            <li>
-              <a (click)="selectCity(city)">{{city.name}}</a>
-            </li>
-          </ul>
-        </div>
+    <nav>
+      <div class="nav-wrapper menu">
+        <a style = "text-decoration: none" href="#" class="brand-logo left">&nbsp; KristiWeather</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a routerLink="/datePicker">Weather for ...</a></li>
+          <li><a routerLink="/weatherInUkraine">Ukraine</a></li>
+          <li><a routerLink="/weatherInEurope">Europe</a></li>
+        </ul>
       </div>
+    </nav>
 
-      <!--dropdown item-->
+    <router-outlet></router-outlet>
 
-      <div>
-        <div class="dropdown">
-          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false"> Please select the city
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <ul>
-              <li *ngFor="let city of cities"><a class="dropdown-item" (click)=selectCity(city)>{{city.name}}</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!--for today-->
-
-      <div *ngIf="selectedCity  && forecastWeatherData && weatherData && hourlyWeatherData">
-        <div class="tableForToday">
-          <h5>The weather in {{selectedCity.name}} at the moment </h5>
-          <table class="table table-responsive table table-bordered">
-            <thead>
-            <tr>
-              <th>Weather icon</th>
-              <th>Temperature, &#8451;</th>
-              <th>Wind, m/s</th>
-              <th>Humidity, %</th>
-              <th>Pressure, hpa</th>
-              <th>Cloudiness of the sky</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><img src="http://openweathermap.org/img/w/{{weatherData.weather[0].icon}}.png" alt="icon"></td>
-              <td>{{convertTemp(weatherData.main.temp)}}</td>
-              <td>{{weatherData.wind.speed}}</td>
-              <td>{{weatherData.main.humidity}}</td>
-              <td>{{weatherData.main.pressure}}</td>
-              <td>{{weatherData.weather[0].description}}</td>
-            </tr>
-          </table>
-        </div>
-
-        <chart class="acord" [type]="type" [data]="datachart" [options]="options"></chart>
-
-        <!--forecastWeather-->
-
-        <div [attr.id]="'accordion_' + i" class="acord" role="tablist" aria-multiselectable="true">
-          <div class="card" *ngFor="let listItem of forecastWeatherData.list let i = index;">
-            <div class="card-header" role="tab" [attr.id]="'headingOne_' + i">
-              <h5 class="mb-0">
-                <a data-toggle="collapse" [attr.data-parent]="'#accordion_' + i" [attr.href]="'#collapseOne_' + i"
-                   aria-expanded="true"
-                   aria-controls="'#collapseOne_' + i">
-                  Weather for {{selectedCity.name}} {{getDate(listItem.dt)}}
-                </a>
-              </h5>
-            </div>
-
-            <div [attr.id]="'collapseOne_' + i" class="collapse" role="tabpanel" aria-labelledby="'headingOne_' + i">
-              <div class="card-block">
-                <table class="table table-responsive table table-bordered">
-                  <thead>
-                  <tr>
-                    <th>Weather icon</th>
-                    <th>Temperature, day &#8451;</th>
-                    <th>Temperature, night &#8451;</th>
-                    <th>Wind, m/s</th>
-                    <th>Humidity, %</th>
-                    <th>Pressure, hpa</th>
-                    <th>Cloudiness of the sky</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td><img src="http://openweathermap.org/img/w/{{listItem.weather[0].icon}}.png"
-                             alt="icon"></td>
-                    <td>{{convertTemp(listItem.temp.day)}}</td>
-                    <td>{{convertTemp(listItem.temp.night)}}</td>
-                    <td>{{listItem.speed}}</td>
-                    <td>{{listItem.humidity}}</td>
-                    <td>{{listItem.pressure}}</td>
-                    <td>{{listItem.weather[0].description}}</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
