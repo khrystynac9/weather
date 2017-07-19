@@ -65,7 +65,7 @@ export class WeatherForecastComponent implements OnInit {
       chartData.labels.push(this.getDateHour(hourlyData.list[i].dt));
       chartData.datasets[0].data.push(this.convertTemp(hourlyData.list[i].main.temp));
     }
-    chartData.datasets[0].label = 'Temperature during the day';
+    chartData.datasets[0].label = 'Temperature for the next 24 hours';
     this.chartData = chartData;
   }
 

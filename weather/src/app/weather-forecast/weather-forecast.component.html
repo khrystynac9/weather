@@ -28,10 +28,12 @@
         </tr>
       </table>
     </div>
+
+
     <chart class="acord" [type]="type" [data]="chartData" [options]="options"></chart>
 
 
-    <!--&lt;!&ndash;forecastWeather&ndash;&gt;-->
+    <!--forecastWeather-->
 
     <div [attr.id]="'accordion_' + i" class="acord" role="tablist" aria-multiselectable="true">
       <div class="card" *ngFor="let listItem of forecastWeatherData.list let i = index;">

@@ -41,3 +41,8 @@ tr td {
 .menu {
   background: linear-gradient(#84ffff , #006064);
 }
+.dropdownWidth {
+  width: 100%;
+  text-align: center;
+  font-family: 'Indie Flower', cursive;
+}
