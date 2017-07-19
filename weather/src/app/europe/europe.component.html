@@ -2,10 +2,10 @@
 
 <div>
   <div class="dropdown acord ">
-    <button type="button" class="btn secondary dropdown-toggle dropdownWidth" data-toggle="dropdown" aria-haspopup="true"
+    <button type="button" class="btn secondary dropdown-toggle dropdownWidth buttonColor" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false"> Please select the city
     </button>
-    <div class="dropdown-menu dropdown-menu-right dropdownWidth" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-menu dropdown-menu-right dropdownWidth background" aria-labelledby="dropdownMenuButton">
       <ul>
         <li *ngFor="let city of cities">
           <a class="dropdown-item" (click)="selectCity(city); forecast.start(city)">{{city.name}}</a>

@@ -1,0 +1,18 @@
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  width: 2rem;
+}
+.custom-day:hover, .custom-day.focused {
+  background-color: #41D8F3  ;
+}
+.weekend {
+  background-color: #68DDE1;
+  border-radius: 1rem;
+  color: white;
+}
+.hidden {
+  display: none;
+}

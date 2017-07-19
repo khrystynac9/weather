@@ -1,16 +1,13 @@
 <div class="body-background z-depth-2">
   <div class="body">
 
-    <nav>
-      <div class="nav-wrapper menu">
-        <a style = "text-decoration: none" href="#" class="brand-logo left">&nbsp; KristiWeather</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a routerLink="/datePicker">Weather for ...</a></li>
-          <li><a routerLink="/weatherInUkraine">Ukraine</a></li>
-          <li><a routerLink="/weatherInEurope">Europe</a></li>
-        </ul>
-      </div>
-    </nav>
+    <div class="topnav menu" id="myTopnav">
+      <a href="#" class="">&nbsp; KristiWeather</a>
+      <a routerLink="/weatherInUkraine">Ukraine</a>
+      <a routerLink="/weatherInEurope">Europe</a>
+      <a routerLink="/datePicker">Weather for ...</a>
+      <a href="javascript:void(0);" style="font-size:15px;" class="icon" (click)="myFunction()">&#9776;</a>
+    </div>
 
     <router-outlet></router-outlet>
 

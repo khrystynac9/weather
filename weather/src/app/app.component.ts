@@ -107,6 +107,15 @@ export class AppComponent {
   //   this.filteredList = [];
   // }
 
+   //responsive menu
+   myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
 
 }
 

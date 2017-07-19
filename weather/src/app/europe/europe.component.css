@@ -1,0 +1,10 @@
+.background {
+  background: linear-gradient(#84ffff , #006064);
+  font-weight: bolder;
+}
+li a:active {
+  background: none;
+}
+.buttonColor {
+  background:#297772;
+}

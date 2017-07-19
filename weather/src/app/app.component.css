@@ -14,11 +14,15 @@ li {
   margin-top: 1%;
   font-family: 'Indie Flower', cursive;
 }
+.font {
+  font-family: 'Indie Flower', cursive;
+}
 h5 {
   margin: 2% 0;
 }
 .acord {
   margin: 2% 0;
+  font-family: 'Indie Flower', cursive;
 }
 tr td {
   text-align: center;
@@ -40,9 +44,66 @@ tr td {
 }
 .menu {
   background: linear-gradient(#84ffff , #006064);
+  /*box-shadow: 10px 10px 5px 5px #888888;*/
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
 }
 .dropdownWidth {
   width: 100%;
   text-align: center;
   font-family: 'Indie Flower', cursive;
 }
+
+.topnav {
+  overflow: hidden;
+  background: linear-gradient(#84ffff , #006064);
+}
+
+.topnav a {
+  float: right;
+  display: block;
+  color: #FDFEFE;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 1.6em;
+}
+
+.topnav a:first-child {
+  float: left;
+}
+
+.topnav a:hover {
+  background: linear-gradient(#D1F4F0, #79E1E6  );
+  color: black;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (max-width: 900px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .topnav.responsive {
+    position: relative;
+  }
+
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
