@@ -16,3 +16,17 @@
 .hidden {
   display: none;
 }
+.custom-day.range {
+  background-color: #0275d8;
+  color: white;
+}
+.faded {
+  opacity: 0.5;
+}
+.button {
+  width: 100%;
+}
+.closeButton {
+  background: linear-gradient(#FFC5E7, #970C5E);
+  color: #FDFEFE;
+}

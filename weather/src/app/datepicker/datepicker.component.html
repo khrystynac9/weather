@@ -1,22 +1,60 @@
 <div class="acord">
-  <form class="form-inline">
-    <div class="form-group">
-      <div class="input-group">
-        <input id = "preferredDate" class="form-control font" placeholder="Please select a date"
-               name="dp" [(ngModel)]="model" ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled"
-               #d="ngbDatepicker" (change)="getDating">
-        <div class="input-group-addon" (click)="d.toggle()">
-          <img src="../assets/images/flat.png" style="width: 1.9rem; height: 1.7rem; cursor: pointer;"/>
+  <button type="button" class="btn btn-secondary button font " data-toggle="modal" data-target="#exampleModal"
+          data-whatever="@fat">Click the button to get the weather
+  </button>
+
+  <!--madol window-->
+  <div class="modal fade menu" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Please select the date and enter the city name to get the
+            weather
+            forecast</h5>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+
+              <!--datepicker-->
+              <div class="acord">
+                <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input id="preferredDate" class="form-control font" placeholder="Please select a date"
+                             name="dp" [(ngModel)]="model" ngbDatepicker [dayTemplate]="customDay"
+                             [markDisabled]="isDisabled"
+                             #d="ngbDatepicker" (navigate)="date = $event.next">
+                      <div class="input-group-addon" (click)="d.toggle()">
+                        <img src="../assets/images/flat.png" style="width: 1.9rem; height: 1.7rem; cursor: pointer;"/>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+                <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected"
+                             let-disabled="disabled" let-focused="focused">
+              <span class="custom-day" [class.weekend]="isWeekend(date)" [class.focused]="focused"
+                    [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth"
+                    [class.text-muted]="disabled">
+                {{ date.day }}
+              </span>
+                </ng-template>
+              </div>
+              <!--the end of datepicker-->
+
+            </div>
+            <div class="form-group">
+              <textarea class="form-control font " id="cityName" placeholder="name of the city"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary font closeButton" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary font menu" (click) = "getDating()">Send message</button>
         </div>
       </div>
     </div>
-  </form>
-
-  <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected"
-               let-disabled="disabled" let-focused="focused">
-  <span class="custom-day" [class.weekend]="isWeekend(date)" [class.focused]="focused"
-        [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth" [class.text-muted]="disabled">
-    {{ date.day }}
-  </span>
-  </ng-template>
+  </div>
 </div>
