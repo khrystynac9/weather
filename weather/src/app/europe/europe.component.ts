@@ -14,7 +14,6 @@ export class EuropeComponent implements OnInit {
   ngOnInit() {
     this.getCities();
   }
-
   getCities(): void {
     this.cities = this.service.getAllCities();
   }

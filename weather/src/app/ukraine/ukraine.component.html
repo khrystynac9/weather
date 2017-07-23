@@ -5,12 +5,14 @@
       <label class="font-weight" for="country">Please input the name of the city</label>
       <input id="country" type="text" class="validate filter-input" [(ngModel)]=query (keyup)=filter()>
     </div>
-    <div class="suggestions" *ngIf="filteredList.length > 0">
+    <div class="suggestions" *ngIf="ukrCity">
       <ul *ngFor="let city of filteredList">
         <li>
-          <a (click)="selectCity(city)">{{city.name}}</a>
+          <a (click)="selectCity(city) ; today.pusk(city); forecast.starting(city)">{{city.name}}</a>
         </li>
       </ul>
     </div>
   </div>
 </div>
+<app-today-weather #today></app-today-weather>
+<app-weather-forecast #forecast></app-weather-forecast>

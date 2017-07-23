@@ -15,6 +15,7 @@ import {EuropeComponent} from './europe/europe.component';
 import {WeatherForecastComponent} from './weather-forecast/weather-forecast.component';
 import {DatepickerComponent} from './datepicker/datepicker.component';
 import {TodayWeatherComponent} from './today-weather/today-weather.component';
+import { WeatherMapComponent } from './weather-map/weather-map.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {TodayWeatherComponent} from './today-weather/today-weather.component';
     EuropeComponent,
     WeatherForecastComponent,
     DatepickerComponent,
-    TodayWeatherComponent
+    TodayWeatherComponent,
+    WeatherMapComponent
   ],
   imports: [
     BrowserModule,

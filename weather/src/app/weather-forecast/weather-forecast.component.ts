@@ -19,7 +19,6 @@ export class WeatherForecastComponent implements OnInit {
     this.getWeatherForecastData(city);
     this.assignCity(city);
   }
-
   assignCity(city: City): any {
     this.city = city;
   }
@@ -31,7 +30,6 @@ export class WeatherForecastComponent implements OnInit {
   convertTemp(temp: number): number {
     return Math.round(temp - 273);
   }
-
   getDate(date: number): string {
     let d = new Date(date * 1000);
     return d.toDateString();

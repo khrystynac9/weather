@@ -1,31 +1,51 @@
 import {Component, OnInit} from '@angular/core';
 import {City, WeatherService} from '../app.service';
 import {HourlyDayWeatherData, WeatherData, ChartData, ChartDataSet} from '../app.weatherData';
+import {NgbTabsetConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-today-weather',
   templateUrl: './today-weather.component.html',
-  styleUrls: ['./today-weather.component.css']
+  styleUrls: ['./today-weather.component.css'],
+  providers: [NgbTabsetConfig]
 })
 export class TodayWeatherComponent implements OnInit {
   city: City;
   weatherData: WeatherData;
   hourlyWeatherData: HourlyDayWeatherData;
-
-  constructor(private service: WeatherService) { }
+  typeT = 'line';
+  typeW = 'line';
+  typeP = 'line';
+  optionsT = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+  optionsW = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+  optionsP = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+  public chartDataT: ChartData = new ChartData([], [new ChartDataSet('', [])]);
+  public chartDataW: ChartData = new ChartData([], [new ChartDataSet('', [])]);
+  public chartDataP: ChartData = new ChartData([], [new ChartDataSet('', [])]);
+  constructor(private service: WeatherService, config: NgbTabsetConfig) {
+    config.justify = 'center';
+    config.type = 'pills';
+  }
 
   ngOnInit() {
   }
   pusk(city: City) {
     this.getWeatherData(city);
-    // this.getWeatherForecastData(city);
     this.assignCity(city);
     this.getHourlyWeatherData(city);
   }
   assignCity(city: City): any {
     this.city = city;
   }
-
   getWeatherData(city: City): any {
     this.service.getCurrentWeatherData(city).subscribe((resp) => {
       this.weatherData = resp;
@@ -37,22 +57,24 @@ export class TodayWeatherComponent implements OnInit {
       this.getChartData(this.hourlyWeatherData);
     });
   }
-
-  public chartData: ChartData = new ChartData([], [new ChartDataSet('', [])]);
-  type = 'line';
-  options = {
-    responsive: true,
-    maintainAspectRatio: false
-  };
-
   getChartData(hourlyData: HourlyDayWeatherData) {
-    let chartData = new ChartData([], [new ChartDataSet('Temperature during the day', [])]);
+    let chartDataTemp = new ChartData([], [new ChartDataSet('Temperature during the day', [])]);
+    let chartDataWind = new ChartData([], [new ChartDataSet('Wind speed during the day', [])]);
+    let chartDataPressure = new ChartData([], [new ChartDataSet('Pressure during the day', [])]);
     for (let i = 0; i < 8; i++) {
-      chartData.labels.push(this.getDateHour(hourlyData.list[i].dt));
-      chartData.datasets[0].data.push(this.convertTemp(hourlyData.list[i].main.temp));
+      chartDataTemp.labels.push(this.getDateHour(hourlyData.list[i].dt));
+      chartDataTemp.datasets[0].data.push(this.convertTemp(hourlyData.list[i].main.temp));
+      chartDataWind.labels.push(this.getDateHour(hourlyData.list[i].dt));
+      chartDataWind.datasets[0].data.push(hourlyData.list[i].wind.speed);
+      chartDataPressure.labels.push(this.getDateHour(hourlyData.list[i].dt));
+      chartDataPressure.datasets[0].data.push(hourlyData.list[i].main.pressure);
     }
-    chartData.datasets[0].label = 'Temperature for the next 24 hours';
-    this.chartData = chartData;
+    chartDataTemp.datasets[0].label = 'Temperature for the next 24 hours';
+    this.chartDataT = chartDataTemp;
+    chartDataWind.datasets[0].label = 'Wind speed for the next 24 hours';
+    this.chartDataW = chartDataWind;
+    chartDataPressure.datasets[0].label = 'Pressure for the next 24 hours';
+    this.chartDataP = chartDataPressure;
   }
   convertTemp(temp: number): number {
     return Math.round(temp - 273);

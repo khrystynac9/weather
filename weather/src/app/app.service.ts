@@ -10,7 +10,6 @@ export class City {
   countryCode: string;
 }
 
-
 const CITIES: City[] = [
   {name: 'London', countryCode: 'gb'},
   {name: 'Berlin', countryCode: 'de'},
@@ -21,44 +20,17 @@ const CITIES: City[] = [
 ];
 export const UKR_COUNTRY_CODE: string = 'ua';
 
-const UKR_CITIES: City[] = [
-  {name: 'Lviv', countryCode: 'ua'},
-  {name: 'Ivano - Frankivsk', countryCode: 'ua'},
-  {name: 'Rivne', countryCode: 'ua'},
-  {name: 'Dnipro', countryCode: 'ua'},
-  {name: 'Kiev', countryCode: 'ua'},
-  {name: 'Odessa', countryCode: 'ua'},
-];
-
 @Injectable()
 export class WeatherService {
 
   constructor(private http: Http) {
   }
 
-  myCity: string;
-
   searchUkrCity(query: string) {
-    console.log(query + ' searc by this value');
-    // return this.http.get('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + query +
-    //   '&types=geocode&components=country:' + UKR_COUNTRY_CODE + '&language=en&key=AIzaSyC_QJv1q0-ygYiOPx0Rx3_myMMu3nZyhwo')
-    //   .map((resp: Response) => resp.json());
-    return this.http.get('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=lv&types=geocode&components=country:ua&language=en&key=AIzaSyC_QJv1q0-ygYiOPx0Rx3_myMMu3nZyhwo')
+    return this.http.get('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + query +
+      '&types=geocode&components=country:' + UKR_COUNTRY_CODE + '&language=en&key=AIzaSyC_QJv1q0-ygYiOPx0Rx3_myMMu3nZyhwo')
       .map((resp: Response) => resp.json());
   }
-
-
-  // searchUkrCity(term: string): City[] {
-  //   const resultCities: City[] = [];
-  //   let i;
-  //   for (i = 0; i < UKR_CITIES.length; i++) {
-  //     if (UKR_CITIES[i].name.indexOf(term) !== -1) {
-  //       resultCities.push(UKR_CITIES[i]);
-  //     }
-  //   }
-  //   return resultCities;
-  // }
-
 
   getAllCities() {
     return CITIES;
@@ -82,33 +54,16 @@ export class WeatherService {
       .map((resp: Response) => resp.json());
   }
 
-
   getForecastWeatherFor(myCity: string) {
     return this.http.get('http://api.openweathermap.org/data/2.5/forecast/daily?q=' + myCity +
       '&units=metric&cnt=16&APPID=c7e98cf72324034bbbb3043112407cfc')
       .map((resp: Response) => resp.json());
   }
-  // getForecastWeatherFor(myCity: string) {
-  //   return this.http.get('http://api.openweathermap.org/data/2.5/forecast/daily?q=' + myCity +
-  //     '&units=metric&cnt=16&APPID=c7e98cf72324034bbbb3043112407cfc')
-  //     .map((resp: Response) => {
-  //       if (resp) {
-  //         if (resp.status === 200) {
-  //           return [{status: resp.status, json: resp}];
-  //         }
-  //       }
-  //     }).catch((error: any) => {
-  //       if (error.status === 404) {
-  //         return Observable.throw(new Error(error.status));
-  //       }
-  //     });
-  // }
 
-getMap()
-{
-  return this.http.get('http://tile.openweathermap.org/map/clouds_new/3/1/1.png?appid=AIzaSyC_QJv1q0-ygYiOPx0Rx3_myMMu3nZyhwo')
-    .map((resp: Response) => resp.json());
-}
+  getMap() {
+    return this.http.get('http://tile.openweathermap.org/map/clouds_new/3/1/1.png?appid=AIzaSyC_QJv1q0-ygYiOPx0Rx3_myMMu3nZyhwo')
+      .map((resp: Response) => resp.json());
+  }
 }
 
 

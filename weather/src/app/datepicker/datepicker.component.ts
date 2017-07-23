@@ -27,8 +27,6 @@ export class DatepickerComponent implements OnInit {
     // this.fromDate = calendar.getToday();
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 10)
   }
-
-
   ngOnInit() {
     // this.onDateChange()
   }
@@ -41,32 +39,23 @@ export class DatepickerComponent implements OnInit {
     const d = new Date(date.year, date.month - 1, date.day);
     return d.getDay() === 0 || d.getDay() === 6;
   }
-
   isDisabled(date: NgbDateStruct, current: { month: number }) {
     return date.month !== current.month;
   }
-
-
   getMyDate() {
     this.convertDate = ((new Date(this.model.year, (this.model.month) - 1, this.model.day)).getTime());
   }
-
   getMyCityForecast() {
     this.service.getForecastWeatherFor(this.myCity).subscribe((resp) => {
         this.myCityWeatherData = resp;
-        console.log(resp);
       },
       (error) => {
         this.handleError(error);
       });
   }
-
   handleError(error) {
     this.badCityName = true;
-
   }
-
-
   getForecastByDate() {
     if (this.myCity && this.model) {
       this.getMyCityForecast();
@@ -90,7 +79,6 @@ export class DatepickerComponent implements OnInit {
       this.badRequest = true;
     }
   }
-
   roundNumber(x: number) {
     return Math.round(x);
   }

@@ -23,5 +23,23 @@
       </tr>
     </table>
   </div>
-  <chart class="acord" [type]="type" [data]="chartData" [options]="options"></chart>
+  <!--<chart class="acord" [typeT]="typeT" [data]="chartDataTemp" [options]="options"></chart>-->
+
+  <ngb-tabset>
+    <ngb-tab title="Temperature">
+      <ng-template ngbTabContent>
+        <chart class="acord" [type]="typeT" [data]="chartDataT" [options]="optionsT"></chart>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Wind">
+    <ng-template ngbTabContent>
+      <chart class="acord" [type]="typeW" [data]="chartDataW" [options]="optionsW"></chart>
+    </ng-template>
+  </ngb-tab>
+    <ngb-tab title="Pressure">
+      <ng-template ngbTabContent>
+        <chart class="acord" [type]="typeP" [data]="chartDataP" [options]="optionsP"></chart>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
 </div>
