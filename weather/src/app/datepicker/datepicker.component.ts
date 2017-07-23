@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
-import {City, WeatherService} from '../app.service';
+import {WeatherService} from '../app.service';
+import {ForecastWeatherData, ForecastWeatherList} from '../app.weatherData';
 // import {after, before} from "selenium-webdriver/testing";
 
 const now = new Date();
@@ -12,16 +13,25 @@ const now = new Date();
 })
 export class DatepickerComponent implements OnInit {
 
-  constructor(calendar: NgbCalendar) {
+
+  myCity: string;
+  model: NgbDateStruct;
+  myCityWeatherData: ForecastWeatherData;
+  convertDate: number;
+  wantedDay: ForecastWeatherList;
+  dayInMilisec: number = 24 * 60 * 60 * 1000;
+  badRequest: boolean = false;
+  badCityName: boolean = false;
+
+  constructor(calendar: NgbCalendar, private service: WeatherService) {
     // this.fromDate = calendar.getToday();
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 10)
   }
 
+
   ngOnInit() {
     // this.onDateChange()
   }
-
-  model: NgbDateStruct;
 
   // hoveredDate: NgbDateStruct;
   // fromDate: NgbDateStruct;
@@ -37,39 +47,69 @@ export class DatepickerComponent implements OnInit {
   }
 
 
-  getDating() {
-    let equelTime = 54000000;
-    let date = (<HTMLInputElement>document.getElementById("preferredDate")).value;
-    console.log(date);
-    let b = ((new Date(this.model.year, (this.model.month) - 1, this.model.day)).getTime()) + 54000000;
-    let a = new Date(this.model.year, (this.model.month) - 1, this.model.day);
-    console.log(b);
-    console.log(a);
-    let myCity = (<HTMLInputElement>document.getElementById("cityName")).value;
-    console.log(myCity, typeof (myCity), b, typeof (b));
-    return myCity;
+  getMyDate() {
+    this.convertDate = ((new Date(this.model.year, (this.model.month) - 1, this.model.day)).getTime());
   }
-  // let c:string = this.getDating();
-  // console.log(c);
-  //
+
+  getMyCityForecast() {
+    this.service.getForecastWeatherFor(this.myCity).subscribe((resp) => {
+        this.myCityWeatherData = resp;
+        console.log(resp);
+      },
+      (error) => {
+        this.handleError(error);
+      });
+  }
+
+  handleError(error) {
+    this.badCityName = true;
+
+  }
 
 
+  getForecastByDate() {
+    if (this.myCity && this.model) {
+      this.getMyCityForecast();
+      this.getMyDate();
+      setTimeout(() => {
+        if (!this.myCityWeatherData) {
+          this.badRequest = true;
+        } else {
+          this.badRequest = false;
+          this.badCityName = false;
+          for (let i = 0; i < this.myCityWeatherData.list.length; i++) {
+            let respDate = this.myCityWeatherData.list[i].dt * 1000;
+            if (respDate >= this.convertDate && respDate < (this.convertDate + this.dayInMilisec)) {
+              this.wantedDay = this.myCityWeatherData.list[i];
+              break;
+            }
+          }
+        }
+      }, 1000);
+    } else {
+      this.badRequest = true;
+    }
+  }
+
+  roundNumber(x: number) {
+    return Math.round(x);
+  }
 
 
-  //
-  // onDateChange(date: NgbDateStruct) {
-  //   if (!this.fromDate && !this.toDate) {
-  //     this.fromDate = date;
-  //   } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
-  //     this.toDate = date;
-  //   } else {
-  //     this.toDate = null;
-  //     this.fromDate = date;
-  //   }
-  // }
-  // isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
-  // isInside = date => after(date, this.fromDate) && before(date, this.toDate);
-  // isFrom = date => equals(date, this.fromDate);
-  // isTo = date => equals(date, this.toDate);
+//
+// onDateChange(date: NgbDateStruct) {
+//   if (!this.fromDate && !this.toDate) {
+//     this.fromDate = date;
+//   } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
+//     this.toDate = date;
+//   } else {
+//     this.toDate = null;
+//     this.fromDate = date;
+//   }
+// }
+// isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
+// isInside = date => after(date, this.fromDate) && before(date, this.toDate);
+// isFrom = date => equals(date, this.fromDate);
+// isTo = date => equals(date, this.toDate);
 }
 

@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {City, WeatherService} from '../app.service';
-import {WeatherForecastComponent} from '../weather-forecast/weather-forecast.component';
-
 
 @Component({
   selector: 'app-europe',
@@ -9,11 +7,9 @@ import {WeatherForecastComponent} from '../weather-forecast/weather-forecast.com
   styleUrls: ['../app.component.css', './europe.component.css']
 })
 export class EuropeComponent implements OnInit {
-
-  constructor(private service: WeatherService) {}
-
   cities: City[] = [];
   selectedCity: City;
+  constructor(private service: WeatherService) {}
 
   ngOnInit() {
     this.getCities();

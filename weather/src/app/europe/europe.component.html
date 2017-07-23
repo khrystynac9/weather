@@ -1,5 +1,4 @@
 <!--dropdown item-->
-
 <div>
   <div class="dropdown acord ">
     <button type="button" class="btn secondary dropdown-toggle dropdownWidth buttonColor" data-toggle="dropdown" aria-haspopup="true"
@@ -8,10 +7,11 @@
     <div class="dropdown-menu dropdown-menu-right dropdownWidth background" aria-labelledby="dropdownMenuButton">
       <ul>
         <li *ngFor="let city of cities">
-          <a class="dropdown-item" (click)="selectCity(city); forecast.start(city)">{{city.name}}</a>
+          <a class="dropdown-item" (click)="selectCity(city); today.pusk(city); forecast.starting(city)">{{city.name}}</a>
         </li>
       </ul>
     </div>
   </div>
 </div>
+<app-today-weather #today></app-today-weather>
 <app-weather-forecast #forecast></app-weather-forecast>

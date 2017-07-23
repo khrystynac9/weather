@@ -35,26 +35,89 @@
 
                 <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected"
                              let-disabled="disabled" let-focused="focused">
-              <span class="custom-day" [class.weekend]="isWeekend(date)" [class.focused]="focused"
-                    [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth"
-                    [class.text-muted]="disabled">
+                <span class="custom-day" [class.weekend]="isWeekend(date)" [class.focused]="focused"
+                      [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth"
+                      [class.text-muted]="disabled">
                 {{ date.day }}
               </span>
                 </ng-template>
               </div>
               <!--the end of datepicker-->
-
             </div>
             <div class="form-group">
-              <textarea class="form-control font " id="cityName" placeholder="name of the city"></textarea>
+              <input type="text" class="form-control font " id="cityName" placeholder="name of the city"
+                     [(ngModel)]="myCity" name="myCity">
             </div>
           </form>
         </div>
-        <div class="modal-footer">
+        <div class="footer">
           <button type="button" class="btn btn-secondary font closeButton" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary font menu" (click) = "getDating()">Send message</button>
+          <button type="button" class="btn btn-primary font menu" (click)="getForecastByDate()" data-dismiss="modal">
+            Send message
+          </button>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div *ngIf="myCity && myCityWeatherData && wantedDay">
+  <div class="tableForToday">
+    <h5>The weather in {{myCityWeatherData.city.name}} in {{myCityWeatherData.city.country}} for {{model.day}} -
+      {{model.month}} - {{model.year}} </h5>
+    <table class="table table-responsive table table-bordered">
+      <thead>
+      <tr>
+        <th>Weather icon</th>
+        <th>Temperature, day &#8451;</th>
+        <th>Temperature, night &#8451;</th>
+        <th>Wind, m/s</th>
+        <th>Humidity, %</th>
+        <th>Pressure, hpa</th>
+        <th>Cloudiness of the sky</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><img src="http://openweathermap.org/img/w/{{wantedDay.weather[0].icon}}.png"
+                 alt="icon"></td>
+        <td>{{roundNumber(wantedDay.temp.day)}}</td>
+        <td>{{roundNumber(wantedDay.temp.night)}}</td>
+        <td>{{roundNumber(wantedDay.speed)}}</td>
+        <td>{{wantedDay.humidity}}</td>
+        <td>{{roundNumber(wantedDay.pressure)}}</td>
+        <td>{{wantedDay.weather[0].description}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!--<div class="modal fade" id="bla">-->
+  <!--<div class="modal-dialog" role="document">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-header">-->
+        <!--<h5 class="modal-title">Modal title</h5>-->
+        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+          <!--<span aria-hidden="true">&times;</span>-->
+        <!--</button>-->
+      <!--</div>-->
+      <!--<div class="modal-body">-->
+        <!--<p>Modal body text goes here.</p>-->
+      <!--</div>-->
+      <!--<div class="modal-footer">-->
+        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<div *ngIf = "badRequest">
+  <div class="alert alert-danger" role="alert">
+    <strong>Oh snap!</strong> <p>Select day, city and try submitting again.</p>
+  </div>
+</div>
+<div *ngIf = "badCityName">
+  <div class="alert alert-danger" role="alert">
+    <strong>Oh snap!</strong> <p>City name is not correct. </p>
   </div>
 </div>

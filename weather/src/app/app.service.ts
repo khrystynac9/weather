@@ -82,16 +82,33 @@ export class WeatherService {
       .map((resp: Response) => resp.json());
   }
 
-  getForecastWeatherFor() {
-    return this.http.get('http://api.openweathermap.org/data/2.5/forecast/daily?q=' + this.myCity +
+
+  getForecastWeatherFor(myCity: string) {
+    return this.http.get('http://api.openweathermap.org/data/2.5/forecast/daily?q=' + myCity +
       '&units=metric&cnt=16&APPID=c7e98cf72324034bbbb3043112407cfc')
       .map((resp: Response) => resp.json());
   }
+  // getForecastWeatherFor(myCity: string) {
+  //   return this.http.get('http://api.openweathermap.org/data/2.5/forecast/daily?q=' + myCity +
+  //     '&units=metric&cnt=16&APPID=c7e98cf72324034bbbb3043112407cfc')
+  //     .map((resp: Response) => {
+  //       if (resp) {
+  //         if (resp.status === 200) {
+  //           return [{status: resp.status, json: resp}];
+  //         }
+  //       }
+  //     }).catch((error: any) => {
+  //       if (error.status === 404) {
+  //         return Observable.throw(new Error(error.status));
+  //       }
+  //     });
+  // }
 
-  getMap() {
-    return this.http.get('http://tile.openweathermap.org/map/clouds_new/3/1/1.png?appid=AIzaSyC_QJv1q0-ygYiOPx0Rx3_myMMu3nZyhwo')
-      .map((resp: Response) => resp.json());
-  }
+getMap()
+{
+  return this.http.get('http://tile.openweathermap.org/map/clouds_new/3/1/1.png?appid=AIzaSyC_QJv1q0-ygYiOPx0Rx3_myMMu3nZyhwo')
+    .map((resp: Response) => resp.json());
+}
 }
 
 

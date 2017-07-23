@@ -1,0 +1,27 @@
+<div *ngIf="city && weatherData">
+  <div class="tableForToday">
+    <h5>The weather in {{city.name}} at the moment </h5>
+    <table class="table table-responsive table table-bordered">
+      <thead>
+      <tr>
+        <th>Weather icon</th>
+        <th>Temperature, &#8451;</th>
+        <th>Wind, m/s</th>
+        <th>Humidity, %</th>
+        <th>Pressure, hpa</th>
+        <th>Cloudiness of the sky</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><img src="http://openweathermap.org/img/w/{{weatherData.weather[0].icon}}.png" alt="icon"></td>
+        <td>{{convertTemp(weatherData.main.temp)}}</td>
+        <td>{{roundNumber(weatherData.wind.speed)}}</td>
+        <td>{{weatherData.main.humidity}}</td>
+        <td>{{weatherData.main.pressure}}</td>
+        <td>{{weatherData.weather[0].description}}</td>
+      </tr>
+    </table>
+  </div>
+  <chart class="acord" [type]="type" [data]="chartData" [options]="options"></chart>
+</div>

@@ -55,10 +55,17 @@ export class HourlyDayWeatherData {
 
 export class ForecastWeatherData {
   message: number;
+  cod: string;
+  city: CityDescription;
   list: ForecastWeatherList[];
 }
 
-class ForecastWeatherList {
+class CityDescription {
+  name: string;
+  country: string;
+}
+
+export class ForecastWeatherList {
   dt: number;
   pressure: number;
   humidity: number;
