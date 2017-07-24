@@ -28,6 +28,8 @@ export class TodayWeatherComponent implements OnInit {
     responsive: true,
     maintainAspectRatio: false
   };
+  toCelsius = 273;
+  toMilisecond = 1000;
   public chartDataT: ChartData = new ChartData([], [new ChartDataSet('', [])]);
   public chartDataW: ChartData = new ChartData([], [new ChartDataSet('', [])]);
   public chartDataP: ChartData = new ChartData([], [new ChartDataSet('', [])]);
@@ -84,11 +86,11 @@ export class TodayWeatherComponent implements OnInit {
   }
 
   convertTemp(temp: number): number {
-    return Math.round(temp - 273);
+    return Math.round(temp - this.toCelsius);
   }
 
   getDateHour(date: number): number {
-    let d = new Date(date * 1000);
+    let d = new Date(date * this.toMilisecond);
     return d.getHours();
   }
 

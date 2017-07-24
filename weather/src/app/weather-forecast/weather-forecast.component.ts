@@ -10,6 +10,8 @@ import {ForecastWeatherData} from '../app.weatherData';
 export class WeatherForecastComponent implements OnInit {
   forecastWeatherData: ForecastWeatherData;
   city: City;
+  toCelsius = 273;
+  toMilisecond = 1000;
 
   constructor(private service: WeatherService) {
   }
@@ -33,11 +35,11 @@ export class WeatherForecastComponent implements OnInit {
   }
 
   convertTemp(temp: number): number {
-    return Math.round(temp - 273);
+    return Math.round(temp - this.toCelsius);
   }
 
   getDate(date: number): string {
-    let d = new Date(date * 1000);
+    let d = new Date(date * this.toMilisecond);
     return d.toDateString();
   }
 

@@ -15,8 +15,9 @@ export class DatepickerComponent implements OnInit {
   convertDate: number;
   wantedDay: ForecastWeatherList;
   dayInMilisec: number = 24 * 60 * 60 * 1000;
-  badRequest: boolean = false;
-  badCityName: boolean = false;
+  badRequest = false;
+  badCityName = false;
+  toMillisecond = 1000;
 
   constructor(private service: WeatherService) {
   }
@@ -61,7 +62,7 @@ export class DatepickerComponent implements OnInit {
           this.badRequest = false;
           this.badCityName = false;
           for (let i = 0; i < this.myCityWeatherData.list.length; i++) {
-            let respDate = this.myCityWeatherData.list[i].dt * 1000;
+            let respDate = this.myCityWeatherData.list[i].dt * this.toMillisecond;
             if (respDate >= this.convertDate && respDate < (this.convertDate + this.dayInMilisec)) {
               this.wantedDay = this.myCityWeatherData.list[i];
               break;

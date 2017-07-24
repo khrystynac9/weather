@@ -18,12 +18,11 @@
         <td>{{convertTemp(weatherData.main.temp)}}</td>
         <td>{{roundNumber(weatherData.wind.speed)}}</td>
         <td>{{weatherData.main.humidity}}</td>
-        <td>{{weatherData.main.pressure}}</td>
+        <td>{{roundNumber(weatherData.main.pressure)}}</td>
         <td>{{weatherData.weather[0].description}}</td>
       </tr>
     </table>
   </div>
-  <!--<chart class="acord" [typeT]="typeT" [data]="chartDataTemp" [options]="options"></chart>-->
 
   <ngb-tabset>
     <ngb-tab title="Temperature">
