@@ -9,14 +9,18 @@ import {City, WeatherService} from '../app.service';
 export class EuropeComponent implements OnInit {
   cities: City[] = [];
   selectedCity: City;
-  constructor(private service: WeatherService) {}
+
+  constructor(private service: WeatherService) {
+  }
 
   ngOnInit() {
     this.getCities();
   }
+
   getCities(): void {
     this.cities = this.service.getAllCities();
   }
+
   selectCity(city: City): void {
     this.selectedCity = city;
   }

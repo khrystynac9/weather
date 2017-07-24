@@ -104,14 +104,17 @@ export class ChartDataSet {
     this.data = data;
   }
 }
+
 export class UkrCity {
   predictions: Predictions[];
   status: string;
 }
+
 class Predictions {
   description: string;
   structured_formatting: StructuredFormatting;
 }
+
 class StructuredFormatting {
   main_text: string;
 }

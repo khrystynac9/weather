@@ -31,6 +31,7 @@ export class TodayWeatherComponent implements OnInit {
   public chartDataT: ChartData = new ChartData([], [new ChartDataSet('', [])]);
   public chartDataW: ChartData = new ChartData([], [new ChartDataSet('', [])]);
   public chartDataP: ChartData = new ChartData([], [new ChartDataSet('', [])]);
+
   constructor(private service: WeatherService, config: NgbTabsetConfig) {
     config.justify = 'center';
     config.type = 'pills';
@@ -38,25 +39,30 @@ export class TodayWeatherComponent implements OnInit {
 
   ngOnInit() {
   }
+
   pusk(city: City) {
     this.getWeatherData(city);
     this.assignCity(city);
     this.getHourlyWeatherData(city);
   }
+
   assignCity(city: City): any {
     this.city = city;
   }
+
   getWeatherData(city: City): any {
     this.service.getCurrentWeatherData(city).subscribe((resp) => {
       this.weatherData = resp;
     });
   }
+
   getHourlyWeatherData(city: City): void {
     this.service.getHourlyDayWeatherData(city).subscribe((resp) => {
       this.hourlyWeatherData = resp;
       this.getChartData(this.hourlyWeatherData);
     });
   }
+
   getChartData(hourlyData: HourlyDayWeatherData) {
     let chartDataTemp = new ChartData([], [new ChartDataSet('Temperature during the day', [])]);
     let chartDataWind = new ChartData([], [new ChartDataSet('Wind speed during the day', [])]);
@@ -76,13 +82,16 @@ export class TodayWeatherComponent implements OnInit {
     chartDataPressure.datasets[0].label = 'Pressure for the next 24 hours';
     this.chartDataP = chartDataPressure;
   }
+
   convertTemp(temp: number): number {
     return Math.round(temp - 273);
   }
+
   getDateHour(date: number): number {
     let d = new Date(date * 1000);
     return d.getHours();
   }
+
   roundNumber(x: number) {
     return Math.round(x);
   }

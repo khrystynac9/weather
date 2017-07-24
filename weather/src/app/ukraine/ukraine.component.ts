@@ -50,5 +50,4 @@ export class UkraineComponent {
     this.query = item.name;
     this.filteredList = [];
   }
-
 }

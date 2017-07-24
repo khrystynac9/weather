@@ -5,6 +5,7 @@
   margin: auto;
   padding: 3%;
   margin-top: 2%;
+  min-height: 600px;
 }
 li {
   list-style-type: none;

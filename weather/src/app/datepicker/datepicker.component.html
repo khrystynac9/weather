@@ -25,14 +25,13 @@
                       <input id="preferredDate" class="form-control font" placeholder="Please select a date"
                              name="dp" [(ngModel)]="model" ngbDatepicker [dayTemplate]="customDay"
                              [markDisabled]="isDisabled"
-                             #d="ngbDatepicker" (navigate)="date = $event.next">
+                             #d="ngbDatepicker">
                       <div class="input-group-addon" (click)="d.toggle()">
                         <img src="../assets/images/flat.png" style="width: 1.9rem; height: 1.7rem; cursor: pointer;"/>
                       </div>
                     </div>
                   </div>
                 </form>
-
                 <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected"
                              let-disabled="disabled" let-focused="focused">
                 <span class="custom-day" [class.weekend]="isWeekend(date)" [class.focused]="focused"
@@ -53,14 +52,14 @@
         <div class="footer">
           <button type="button" class="btn btn-secondary font closeButton" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary font menu" (click)="getForecastByDate()" data-dismiss="modal">
-            Send message
+            Get the weather forecast
           </button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<!--Output of weather data-->
 <div *ngIf="myCity && myCityWeatherData && wantedDay">
   <div class="tableForToday">
     <h5>The weather in {{myCityWeatherData.city.name}} in {{myCityWeatherData.city.country}} for {{model.day}} -
@@ -91,33 +90,16 @@
     </table>
   </div>
 </div>
-
-<!--<div class="modal fade" id="bla">-->
-  <!--<div class="modal-dialog" role="document">-->
-    <!--<div class="modal-content">-->
-      <!--<div class="modal-header">-->
-        <!--<h5 class="modal-title">Modal title</h5>-->
-        <!--<button typeT="button" class="close" data-dismiss="modal" aria-label="Close">-->
-          <!--<span aria-hidden="true">&times;</span>-->
-        <!--</button>-->
-      <!--</div>-->
-      <!--<div class="modal-body">-->
-        <!--<p>Modal body text goes here.</p>-->
-      <!--</div>-->
-      <!--<div class="modal-footer">-->
-        <!--<button typeT="button" class="btn btn-primary">Save changes</button>-->
-        <!--<button typeT="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
-<div *ngIf = "badRequest">
+<!--alert if bad request-->
+<div *ngIf="badRequest">
   <div class="alert alert-danger" role="alert">
-    <strong>Oh snap!</strong> <p>Select day, city and try submitting again.</p>
+    <strong>Oh snap!</strong>
+    <p>Select day, city and try submitting again.</p>
   </div>
 </div>
-<div *ngIf = "badCityName">
+<div *ngIf="badCityName">
   <div class="alert alert-danger" role="alert">
-    <strong>Oh snap!</strong> <p>City name is not correct. </p>
+    <strong>Oh snap!</strong>
+    <p>City name is not correct. </p>
   </div>
 </div>
