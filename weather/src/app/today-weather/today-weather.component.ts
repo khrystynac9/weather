@@ -6,7 +6,7 @@ import {NgbTabsetConfig} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-today-weather',
   templateUrl: './today-weather.component.html',
-  styleUrls: ['./today-weather.component.css'],
+  styleUrls: ['./today-weather.component.css', '../app.component.css'],
   providers: [NgbTabsetConfig]
 })
 export class TodayWeatherComponent implements OnInit {

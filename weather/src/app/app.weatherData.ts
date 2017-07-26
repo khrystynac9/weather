@@ -63,6 +63,12 @@ export class ForecastWeatherData {
 class CityDescription {
   name: string;
   country: string;
+  coord: ForecastCityCoord;
+}
+
+export class ForecastCityCoord {
+  lon: number;
+  lat: number;
 }
 
 export class ForecastWeatherList {
@@ -95,13 +101,30 @@ export class ChartData {
   }
 }
 
+
+export class ChartDataSun {
+  labels: string[];
+  datasets: ChartDataSet[];
+
+  constructor(labels: string[], datasets: ChartDataSet[]) {
+    this.labels = labels;
+    this.datasets = datasets;
+  }
+}
+
 export class ChartDataSet {
   label: string;
   data: number[];
+  backgroundColor: string;
+  borderColor: string;
+  borderWidth: number;
 
-  constructor(label: string, data: number[]) {
+  constructor(label: string, data: number[], backgroundColor: string, borderColor: string, borderWidth: number) {
     this.label = label;
     this.data = data;
+    this.backgroundColor = backgroundColor;
+    this.borderColor = borderColor;
+    this.borderWidth = borderWidth;
   }
 }
 
@@ -117,4 +140,14 @@ class Predictions {
 
 class StructuredFormatting {
   main_text: string;
+}
+
+// export class SunIndex {
+//   sunIndexData: SunIndexData[];
+// }
+
+export class SunIndexData {
+  date_iso: string;
+  date: number;
+  value: number;
 }

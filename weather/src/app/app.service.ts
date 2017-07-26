@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
+import {ForecastWeatherData} from './app.weatherData';
 import 'rxjs/add/operator/map';
 
 export class City {
   name: string;
   countryCode: string;
+  // sunindexCity: ForecastCityCoord;
 }
 
 const CITIES: City[] = [
@@ -54,6 +56,12 @@ export class WeatherService {
   getForecastWeatherFor(myCity: string) {
     return this.http.get('http://api.openweathermap.org/data/2.5/forecast/daily?q=' + myCity +
       '&units=metric&cnt=16&APPID=c7e98cf72324034bbbb3043112407cfc')
+      .map((resp: Response) => resp.json());
+  }
+
+  getSunIndex(lat: number, lon: number) {
+    return this.http.get('http://api.openweathermap.org/data/2.5/uvi/forecast?appid=c7e98cf72324034bbbb3043112407cfc&lat='
+      + lat + '&lon=' + lon)
       .map((resp: Response) => resp.json());
   }
 }

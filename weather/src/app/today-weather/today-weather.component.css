@@ -1,0 +1,9 @@
+.myTabs{
+  margin: 3% 0;
+}
+:host /deep/ .nav-link.active {
+  background-color: #006064;
+}
+:host /deep/ a {
+  color: #006064;
+}

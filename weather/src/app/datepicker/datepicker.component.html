@@ -60,46 +60,48 @@
   </div>
 </div>
 <!--Output of weather data-->
-<div *ngIf="myCity && myCityWeatherData && wantedDay">
-  <div class="tableForToday">
-    <h5>The weather in {{myCityWeatherData.city.name}} in {{myCityWeatherData.city.country}} for {{model.day}} -
-      {{model.month}} - {{model.year}} </h5>
-    <table class="table table-responsive table table-bordered">
-      <thead>
-      <tr>
-        <th>Weather icon</th>
-        <th>Temperature, day &#8451;</th>
-        <th>Temperature, night &#8451;</th>
-        <th>Wind, m/s</th>
-        <th>Humidity, %</th>
-        <th>Pressure, hpa</th>
-        <th>Cloudiness of the sky</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><img src="http://openweathermap.org/img/w/{{wantedDay.weather[0].icon}}.png"
-                 alt="icon"></td>
-        <td>{{roundNumber(wantedDay.temp.day)}}</td>
-        <td>{{roundNumber(wantedDay.temp.night)}}</td>
-        <td>{{roundNumber(wantedDay.speed)}}</td>
-        <td>{{wantedDay.humidity}}</td>
-        <td>{{roundNumber(wantedDay.pressure)}}</td>
-        <td>{{wantedDay.weather[0].description}}</td>
-      </tr>
-    </table>
+<div class="acord">
+  <div *ngIf="myCity && myCityWeatherData && wantedDay">
+    <div class="tableForToday">
+      <h5>The weather in {{myCityWeatherData.city.name}} in {{myCityWeatherData.city.country}} for {{model.day}} -
+        {{model.month}} - {{model.year}} </h5>
+      <table class="table table-responsive table table-bordered">
+        <thead>
+        <tr>
+          <th>Weather icon</th>
+          <th>Temperature, day &#8451;</th>
+          <th>Temperature, night &#8451;</th>
+          <th>Wind, m/s</th>
+          <th>Humidity, %</th>
+          <th>Pressure, hpa</th>
+          <th>Cloudiness of the sky</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><img src="http://openweathermap.org/img/w/{{wantedDay.weather[0].icon}}.png"
+                   alt="icon"></td>
+          <td>{{roundNumber(wantedDay.temp.day)}}</td>
+          <td>{{roundNumber(wantedDay.temp.night)}}</td>
+          <td>{{roundNumber(wantedDay.speed)}}</td>
+          <td>{{wantedDay.humidity}}</td>
+          <td>{{roundNumber(wantedDay.pressure)}}</td>
+          <td>{{wantedDay.weather[0].description}}</td>
+        </tr>
+      </table>
+    </div>
   </div>
-</div>
-<!--alert if bad request-->
-<div *ngIf="badRequest">
-  <div class="alert alert-danger" role="alert">
-    <strong>Oh snap!</strong>
-    <p>Select day, city and try submitting again.</p>
+  <!--alert if bad request-->
+  <div *ngIf="badRequest">
+    <div class="alert alert-danger" role="alert">
+      <strong>Oh snap!</strong>
+      <p>Select day, city and try submitting again.</p>
+    </div>
   </div>
-</div>
-<div *ngIf="badCityName">
-  <div class="alert alert-danger" role="alert">
-    <strong>Oh snap!</strong>
-    <p>City name is not correct. </p>
+  <div *ngIf="badCityName">
+    <div class="alert alert-danger" role="alert">
+      <strong>Oh snap!</strong>
+      <p>City name is not correct. </p>
+    </div>
   </div>
 </div>

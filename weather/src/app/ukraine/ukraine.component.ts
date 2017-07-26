@@ -12,6 +12,7 @@ export class UkraineComponent {
   public filteredList: City[];
   ukrCity: any;
   errorMsg: any;
+  main = false;
 
   constructor(private service: WeatherService) {
   }

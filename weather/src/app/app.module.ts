@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
-import {RouterModule, Routes } from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
@@ -15,6 +15,8 @@ import {EuropeComponent} from './europe/europe.component';
 import {WeatherForecastComponent} from './weather-forecast/weather-forecast.component';
 import {DatepickerComponent} from './datepicker/datepicker.component';
 import {TodayWeatherComponent} from './today-weather/today-weather.component';
+import {SunindexComponent} from './sunindex/sunindex.component';
+import {MainComponent} from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import {TodayWeatherComponent} from './today-weather/today-weather.component';
     WeatherForecastComponent,
     DatepickerComponent,
     TodayWeatherComponent,
+    SunindexComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,21 @@ import {TodayWeatherComponent} from './today-weather/today-weather.component';
       {
         path: 'datePicker',
         component: DatepickerComponent,
+      },
+      {
+        path: 'sunindex',
+        component: SunindexComponent,
+      },
+      {
+        path: 'main',
+        component: MainComponent,
+      },
+      {
+        path: '',
+        redirectTo: '/main',
+        pathMatch: 'full'
       }
+
     ])
   ],
   providers: [WeatherService],

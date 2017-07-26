@@ -5,10 +5,11 @@ import {City} from './app.service';
   selector: 'app-root',
   host: {'(document:click)': 'handleClick($event)'},
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 
 export class AppComponent {
+  main = true;
   public filteredList: City[] = [];
   public elementRef;
 

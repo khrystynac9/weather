@@ -1,44 +1,47 @@
-<div *ngIf="city && weatherData">
-  <div class="tableForToday">
-    <h5>The weather in {{city.name}} at the moment </h5>
-    <table class="table table-responsive table table-bordered">
-      <thead>
-      <tr>
-        <th>Weather icon</th>
-        <th>Temperature, &#8451;</th>
-        <th>Wind, m/s</th>
-        <th>Humidity, %</th>
-        <th>Pressure, hpa</th>
-        <th>Cloudiness of the sky</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><img src="http://openweathermap.org/img/w/{{weatherData.weather[0].icon}}.png" alt="icon"></td>
-        <td>{{convertTemp(weatherData.main.temp)}}</td>
-        <td>{{roundNumber(weatherData.wind.speed)}}</td>
-        <td>{{weatherData.main.humidity}}</td>
-        <td>{{roundNumber(weatherData.main.pressure)}}</td>
-        <td>{{weatherData.weather[0].description}}</td>
-      </tr>
-    </table>
+<div class="acord">
+  <div *ngIf="city && weatherData">
+    <div class="tableForToday">
+      <h5>The weather in {{city.name}} at the moment </h5>
+      <table class="table table-responsive table table-bordered">
+        <thead>
+        <tr>
+          <th>Weather icon</th>
+          <th>Temperature, &#8451;</th>
+          <th>Wind, m/s</th>
+          <th>Humidity, %</th>
+          <th>Pressure, hpa</th>
+          <th>Cloudiness of the sky</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><img src="http://openweathermap.org/img/w/{{weatherData.weather[0].icon}}.png" alt="icon"></td>
+          <td>{{convertTemp(weatherData.main.temp)}}</td>
+          <td>{{roundNumber(weatherData.wind.speed)}}</td>
+          <td>{{weatherData.main.humidity}}</td>
+          <td>{{roundNumber(weatherData.main.pressure)}}</td>
+          <td>{{weatherData.weather[0].description}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="myTabs">
+      <ngb-tabset>
+        <ngb-tab title="Temperature">
+          <ng-template ngbTabContent>
+            <chart class="acord" [type]="typeT" [data]="chartDataT" [options]="optionsT"></chart>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Wind">
+          <ng-template ngbTabContent>
+            <chart class="acord" [type]="typeW" [data]="chartDataW" [options]="optionsW"></chart>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Pressure">
+          <ng-template ngbTabContent>
+            <chart class="acord" [type]="typeP" [data]="chartDataP" [options]="optionsP"></chart>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
   </div>
-
-  <ngb-tabset>
-    <ngb-tab title="Temperature">
-      <ng-template ngbTabContent>
-        <chart class="acord" [type]="typeT" [data]="chartDataT" [options]="optionsT"></chart>
-      </ng-template>
-    </ngb-tab>
-    <ngb-tab title="Wind">
-      <ng-template ngbTabContent>
-        <chart class="acord" [type]="typeW" [data]="chartDataW" [options]="optionsW"></chart>
-      </ng-template>
-    </ngb-tab>
-    <ngb-tab title="Pressure">
-      <ng-template ngbTabContent>
-        <chart class="acord" [type]="typeP" [data]="chartDataP" [options]="optionsP"></chart>
-      </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
 </div>

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="input-field col s12">
+    <label class="font-weight" for="country">Please input the name of the city</label>
+    <input id="country" type="text" class="validate filter-input" [(ngModel)]=sunCity>
+  </div>
+</div>
+<div class="acord">
+  <div class="footer">
+    <button type="button" class="btn btn-primary font menu" (click)="getSunIndexData()" data-dismiss="modal">
+      Get the level of UV in {{sunCity}}
+    </button>
+  </div>
+
+  <div class="advice">
+    <div *ngIf="sunCity && sunIndex">
+      <chart [type]="type" [data]="chartData" [options]="options"></chart>
+    </div>
+
+    <div *ngIf="sunAdviceOne">
+      <div class="alert alert-success" role="alert">
+        <strong>The UV index is in {{sunCity}} {{sunIndex[0].value}}</strong> Little risk of harm from unprotected sun
+        exposure. It may cause skin damage. Wear sunglasses and use SPF 30+ sunscreen, cover the body wiyh clothing and
+        a hat and seek shade around midday when the sun is most intense.
+      </div>
+    </div>
+    <div *ngIf="sunAdviceTwo">
+      <div class="alert alert-info" role="alert">
+        <strong>The UV index is in {{sunCity}} {{sunIndex[0].value}}</strong> High risk of harm from unprotected sun
+        exposure. It can cause skin damage. Wear sunglasses and use SPF 30+ sunscreen? cover the body with sun
+        protective clothing and a wide-brim hat and reduce time in the sun from two hours before to three hours after
+        solar noon (roughly 11:00 AM to 16:00 pm during summer in zones that observe daylight saving time).
+      </div>
+    </div>
+    <div *ngIf="sunAdviceThree">
+      <div class="alert alert-warning" role="alert">
+        <strong>Warning! The UV index in {{sunCity}} is {{sunIndex[0].value}} in {{sunCity}}</strong> The level of UVR
+        is high and dangerous. Wear SPF 30+ sunscreen, a shirt, sunglasses and a hat. Do not stay out in the sun for too
+        long. If you must be outside avoid the sun from two hours before to three hours after solar noon (roughly 11:00
+        AM to 16:00 pm during summer in zones that observe daylight saving time)
+      </div>
+    </div>
+  </div>
+</div>
