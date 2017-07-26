@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherService} from '../app.service';
-import {ChartData, ChartDataSet, ChartDataSun, ForecastWeatherData, SunIndexData} from '../app.weatherData';
+import {ChartDataSet, ChartDataSun, ForecastWeatherData, SunIndexData} from '../app.weatherData';
 
 @Component({
   selector: 'app-sunindex',
@@ -21,7 +21,7 @@ export class SunindexComponent implements OnInit {
     maintainAspectRatio: false
   };
 
-  public chartData: ChartDataSun = new ChartDataSun([], [new ChartDataSet('', [], '#006064', '#006064', 1)]);
+  public chartData: ChartDataSun = new ChartDataSun([], [new ChartDataSet('', [], '#338387', '#338387', 1)]);
 
   constructor(private service: WeatherService) {
   }
@@ -54,7 +54,7 @@ export class SunindexComponent implements OnInit {
   }
 
   getChartData() {
-    let chartData = new ChartDataSun([], [new ChartDataSet('Level of UV Index', [], '#006064', '#006064', 1)]);
+    let chartData = new ChartDataSun([], [new ChartDataSet('Level of UV Index', [], '#338387', '#338387', 1)]);
     for (let i = 0; i < this.sunIndex.length; i++) {
       chartData.labels.push(this.getDate(this.sunIndex[i].date));
       chartData.datasets[0].data.push(this.sunIndex[i].value);

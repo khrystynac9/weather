@@ -30,9 +30,9 @@ export class TodayWeatherComponent implements OnInit {
   };
   toCelsius = 273;
   toMilisecond = 1000;
-  public chartDataT: ChartData = new ChartData([], [new ChartDataSet('', [], '#006064', '#006064', 1)]);
-  public chartDataW: ChartData = new ChartData([], [new ChartDataSet('', [], '#006064', '#006064', 1)]);
-  public chartDataP: ChartData = new ChartData([], [new ChartDataSet('', [], '#006064', '#006064', 1)]);
+  public chartDataT: ChartData = new ChartData([], [new ChartDataSet('', [], '#338387', '#338387', 1)]);
+  public chartDataW: ChartData = new ChartData([], [new ChartDataSet('', [], '#338387', '#338387', 1)]);
+  public chartDataP: ChartData = new ChartData([], [new ChartDataSet('', [], '#338387', '#338387', 1)]);
 
   constructor(private service: WeatherService, config: NgbTabsetConfig) {
     config.justify = 'center';
@@ -66,9 +66,9 @@ export class TodayWeatherComponent implements OnInit {
   }
 
   getChartData(hourlyData: HourlyDayWeatherData) {
-    let chartDataTemp = new ChartData([], [new ChartDataSet('Temperature during the day', [], '#006064', '#006064', 1)]);
-    let chartDataWind = new ChartData([], [new ChartDataSet('Wind speed during the day', [], '#006064', '#006064', 1)]);
-    let chartDataPressure = new ChartData([], [new ChartDataSet('Pressure during the day', [], '#006064', '#006064', 1)]);
+    let chartDataTemp = new ChartData([], [new ChartDataSet('Temperature during the day', [], '#338387', '#338387', 1)]);
+    let chartDataWind = new ChartData([], [new ChartDataSet('Wind speed during the day', [], '#338387', '#338387', 1)]);
+    let chartDataPressure = new ChartData([], [new ChartDataSet('Pressure during the day', [], '#338387', '#338387', 1)]);
     for (let i = 0; i < 8; i++) {
       chartDataTemp.labels.push(this.getDateHour(hourlyData.list[i].dt));
       chartDataTemp.datasets[0].data.push(this.convertTemp(hourlyData.list[i].main.temp));

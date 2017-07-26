@@ -1,3 +1,18 @@
-.image {
-   margin: 3% 15%;
- }
+.images {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+.jambo {
+  background-color: #006064;
+  color: #FEFEFE;
+  margin-bottom: 0;
+}
+.link {
+  color: #FEFEFE;
+  text-decoration: underline;
+}
+a:hover {
+  color: #41D8F3;
+}
