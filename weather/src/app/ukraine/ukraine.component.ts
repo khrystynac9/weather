@@ -26,16 +26,8 @@ export class UkraineComponent {
   getUkrCities(query: string): City [] {
     let result: City [] = [];
     this.service.searchUkrCity(query).subscribe((resp) => {
-        this.ukrCity = resp;
-        this.errorMsg = '';
-        if (resp && resp.predictions.length > 0) {
-        } else {
-          this.errorMsg = 'Nothing Found';
-        }
-      },
-      error => {
-        this.errorMsg = 'Error Loading Your Listings';
-      });
+      this.ukrCity = resp;
+    });
     setTimeout(() => {
       for (let i = 0; i < this.ukrCity.predictions.length; i++) {
         result.push({
