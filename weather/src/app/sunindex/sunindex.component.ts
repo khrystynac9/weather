@@ -59,9 +59,6 @@ export class SunindexComponent implements OnInit {
       chartData.labels.push(this.getDate(this.sunIndex[i].date));
       chartData.datasets[0].data.push(this.sunIndex[i].value);
     }
-    // chartData.datasets[0].backgroundColor.push('#006064');
-    // chartData.datasets[0].borderColor.push('#006064');
-    // chartData.datasets[0].borderWidth;
     chartData.datasets[0].label = 'Level of UV Index';
     this.chartData = chartData;
   }
